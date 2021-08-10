@@ -1,8 +1,9 @@
 package com.fwt.recsys.online.service;
 
-import com.fwt.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fwt.recsys.online.datamanager.DataManager;
 import com.fwt.recsys.online.datamanager.Movie;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,33 +16,21 @@ import java.util.List;
  * RecommendationService, provide recommendation service based on different input
  */
 
+@Service
 public class RecommendationService extends HttpServlet {
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException,
-            IOException {
+    public String doGet(String genre, String size, String sortby) throws ServletException, IOException {
         try {
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("Access-Control-Allow-Origin", "*");
 
-            //genre - movie category
-            String genre = request.getParameter("genre");
-            //number of returned movies
-            String size = request.getParameter("size");
-            //ranking algorithm
-            String sortby = request.getParameter("sortby");
             //a simple method, just fetch all the movie in the genre
             List<Movie> movies = DataManager.getInstance().getMoviesByGenre(genre, Integer.parseInt(size),sortby);
 
             //convert movie list to json format and return
             ObjectMapper mapper = new ObjectMapper();
             String jsonMovies = mapper.writeValueAsString(movies);
-            response.getWriter().println(jsonMovies);
-
+            return  jsonMovies;
         } catch (Exception e) {
             e.printStackTrace();
-            response.getWriter().println("");
+            return "";
         }
     }
 }

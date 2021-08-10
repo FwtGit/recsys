@@ -2,9 +2,8 @@ package com.fwt.recsys.online.controller;
 
 
 import com.fwt.recsys.online.service.MovieService;
-import org.apache.ibatis.annotations.Param;
+import com.fwt.recsys.online.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-public class MovieController {
+public class UserController {
 
     @Autowired
-    MovieService movieService;
+    UserService userService;
 
-    @GetMapping(value = "/getmovie",produces="application/json;charset=UTF-8")
+    @GetMapping(value = "/getuser",produces="application/json;charset=UTF-8")
     public String movie(@RequestParam("id") String id) throws IOException {
-        String movie = movieService.doGet(id);
+        String movie = userService.doGet(id);
         return movie;
     }
 

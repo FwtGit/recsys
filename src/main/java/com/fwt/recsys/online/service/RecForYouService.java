@@ -1,10 +1,11 @@
 package com.fwt.recsys.online.service;
 
-import com.fwt.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fwt.recsys.online.recprocess.RecForYouProcess;
 import com.fwt.recsys.online.util.ABTest;
 import com.fwt.recsys.online.datamanager.Movie;
 import com.fwt.recsys.online.util.Config;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,22 +18,11 @@ import java.util.List;
  * RecForYouService, provide recommended for you service
  */
 
+@Service
 public class RecForYouService extends HttpServlet {
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException,
+    public String doGet(String userId, String size, String model) throws ServletException,
             IOException {
         try {
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("Access-Control-Allow-Origin", "*");
-
-            //get user id via url parameter
-            String userId = request.getParameter("id");
-            //number of returned movies
-            String size = request.getParameter("size");
-            //ranking algorithm
-            String model = request.getParameter("model");
 
             if (Config.IS_ENABLE_AB_TEST){
                 model = ABTest.getConfigByUserId(userId);
@@ -44,11 +34,11 @@ public class RecForYouService extends HttpServlet {
             //convert movie list to json format and return
             ObjectMapper mapper = new ObjectMapper();
             String jsonMovies = mapper.writeValueAsString(movies);
-            response.getWriter().println(jsonMovies);
+            return jsonMovies;
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.getWriter().println("");
+            return "";
         }
     }
 }

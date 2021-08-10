@@ -62,11 +62,11 @@ public class RecSysServer {
 
         //bind services with different servlets
         context.addServlet(DefaultServlet.class,"/");
-        context.addServlet(new ServletHolder(new MovieService()), "/getmovie");
+//        context.addServlet(new ServletHolder(new MovieService()), "/getmovie");
 //        context.addServlet(new ServletHolder(new UserService()), "/getuser");
-        context.addServlet(new ServletHolder(new SimilarMovieService()), "/getsimilarmovie");
-        context.addServlet(new ServletHolder(new RecommendationService()), "/getrecommendation");
-        context.addServlet(new ServletHolder(new RecForYouService()), "/getrecforyou");
+//        context.addServlet(new ServletHolder(new SimilarMovieService()), "/getsimilarmovie");
+//        context.addServlet(new ServletHolder(new RecommendationService()), "/getrecommendation");
+//        context.addServlet(new ServletHolder(new RecForYouService()), "/getrecforyou");
 
         //set url handler
         server.setHandler(context);

@@ -1,7 +1,7 @@
 package com.fwt.recsys.online.datamanager;
 
-import com.fwt.fasterxml.jackson.annotation.JsonIgnore;
-import com.fwt.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fwt.recsys.online.model.Embedding;
 
 import java.util.ArrayList;
